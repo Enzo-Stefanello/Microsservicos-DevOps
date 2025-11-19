@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -16,13 +17,19 @@ public class ReportController {
     }
 
     @GetMapping("/quote")
-    public Map<String, Object> quote(@RequestParam String from, @RequestParam String to) {
+    public Map<String, Object> getQuote(
+            @RequestParam String from,
+            @RequestParam String to
+    ) {
 
-        return Map.of(
-                "from", from,
-                "to", to,
-                "price", 5.42,
-                "timestamp", Instant.now().toString()
-        );
+        Map<String, Object> response = new HashMap<>();
+        response.put("from", from);
+        response.put("to", to);
+
+        // MOCK do preço
+        response.put("price", 5.42);
+        response.put("timestamp", Instant.now().toString());
+
+        return response;
     }
 }

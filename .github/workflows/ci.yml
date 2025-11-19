@@ -1,0 +1,53 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - feature/**
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      # ----- Build services -----
+
+      - name: Build naming-server
+        run: |
+          cd naming-server
+          mvn clean package -DskipTests
+
+      - name: Build currency-report
+        run: |
+          cd currency-report
+          mvn clean package -DskipTests
+
+      - name: Build currency-history
+        run: |
+          cd currency-history
+          mvn clean package -DskipTests
+
+      - name: Build api-gateway
+        run: |
+          cd api-gateway
+          mvn clean package -DskipTests
+
+      # ----- Docker build -----
+
+      - name: Build Docker images
+        run: |
+          docker build -t naming-server ./naming-server
+          docker build -t currency-report ./currency-report
+          docker build -t currency-history ./currency-history
+          docker build -t api-gateway ./api-gateway

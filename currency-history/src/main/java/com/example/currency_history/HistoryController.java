@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class HistoryController {
@@ -17,17 +16,21 @@ public class HistoryController {
     }
 
     @GetMapping("/history")
-    public Map<String, Object> history(@RequestParam String from, @RequestParam String to) {
+    public Map<String, Object> getHistory(
+            @RequestParam String from,
+            @RequestParam String to
+    ) {
 
         List<Map<String, Object>> values = List.of(
-                Map.of("timestamp", Instant.now().minusSeconds(3600).toString(), "price", 5.40),
-                Map.of("timestamp", Instant.now().toString(), "price", 5.43)
+                Map.of("timestamp", Instant.now().minusSeconds(3600).toString(), "price", 5.42),
+                Map.of("timestamp", Instant.now().toString(), "price", 5.47)
         );
 
-        return Map.of(
-                "from", from,
-                "to", to,
-                "values", values
-        );
+        Map<String, Object> response = new HashMap<>();
+        response.put("from", from);
+        response.put("to", to);
+        response.put("values", values);
+
+        return response;
     }
 }

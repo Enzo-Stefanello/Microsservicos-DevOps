@@ -1,3 +1,11 @@
+# Trabalho — Engenharia de Software II
+
+**Autores:** Enzo Lauxen Stefanello e Eduarda Rubin  
+**Disciplina:** Engenharia de Software II  
+**Professor:** Miguel Xavier
+
+---
+
 # Microsserviços — Currency Report & Currency History
 
 Este projeto implementa dois microsserviços integrados via Eureka Naming Server, API Gateway e Docker Compose, incluindo um pipeline básico de CI.

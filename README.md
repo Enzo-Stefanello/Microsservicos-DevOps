@@ -6,36 +6,56 @@ Este projeto implementa dois microsserviços integrados via Eureka Naming Server
 
 ## Como subir o ambiente
 
+Para iniciar todos os serviços:
+
 ```bash
 docker compose up --build
+```
 
-Testes via curl
+---
 
-Currency Report
+## Testes via curl (direto nos microsserviços)
+
+### Currency Report
+```bash
 curl http://localhost:8100/health
 curl "http://localhost:8100/quote?from=USD&to=BRL"
+```
 
-Currency History
+### Currency History
+```bash
 curl http://localhost:8101/health
 curl "http://localhost:8101/history?from=USD&to=BRL"
+```
 
-Testes via API Gateway
+---
 
-Currency Report
+## Testes via API Gateway
+
+### Currency Report
+```bash
 curl http://localhost:8080/currency-report/health
 curl "http://localhost:8080/currency-report/quote?from=USD&to=BRL"
+```
 
-Currency History
+### Currency History
+```bash
 curl http://localhost:8080/currency-history/health
 curl "http://localhost:8080/currency-history/history?from=USD&to=BRL"
+```
 
-Pipeline CI (GitHub Actions)
+---
+
+## Pipeline CI (GitHub Actions)
+
 O pipeline executa:
 
-build
+- build  
+- test  
+- docker build  
 
-test
+Arquivo de configuração:
 
-docker build
-
-Arquivo de configuração: .github/workflows/ci.yml
+```
+.github/workflows/ci.yml
+```
